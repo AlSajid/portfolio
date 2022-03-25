@@ -21,7 +21,7 @@
   <title>Al Sajid - Portfolio</title>
 </head>
 
-<body style="font-family: 'EB Garamond', serif;" class="bg-gradient-to-r from-slate-500 to-stone-200">
+<body style="font-family: 'EB Garamond', serif;" class="bg-gradient-to-r from-green-500 to-blue-300">
   <div class="container mx-auto">
 
     <div class="grid xl:grid-cols-2 gap-16">
@@ -59,7 +59,7 @@
 
       <!-- About Me -->
       <div class="my-3 p-3">
-        <div class="my-3">
+        <div class="my-3 p-3">
           <h1 class="font-bold text-3xl">About Me</h1>
           <hr class="my-3">
           <p class="text-lg">I am Sajid, 22 years old, a final year undergraduate student with a Computer Science and
@@ -69,7 +69,7 @@
             development for the last 8+ years.</p>
         </div>
 
-        <div class="my-10">
+        <div class="my-3 p-3">
           <h1 class="font-bold text-3xl">Education</h1>
           <hr class="my-3">
           <ul class="text-lg list-disc pl-3">
@@ -89,7 +89,7 @@
           </ul>
         </div>
 
-        <div class="my-3 text-xl">
+        <div class="my-3 text-xl p-3">
           <h2 class="text-3xl font-bold">Advanced Training</h2>
           <hr class="my-3">
           <ul class="text-lg list-disc pl-3">
@@ -116,42 +116,78 @@
           <li><b>Inter Section Programming Contest 2019</b><br>
             6th Position (in Permanent Campus)
           </li>
-          <li>CSE Fest 2019 Programming Contest<br>
+          <li><b>CSE Fest 2019 Programming Contest</b><br>
             4th Position</li>
           <li>
-            DIU Battle of Minds (Product Presentation)<br>
+            <b>DIU Battle of Minds (Product Presentation)</b><br>
             Top 10 as Team Leader
           </li>
-          <li>DIU Battle of Minds 2.0 (Product Presentation)<br>
-            As Mentor (the team leader under my mentorship got the Best Presenter Award)</li>
+          <li><b>DIU Battle of Minds 2.0 (Product Presentation)</b><br>
+            As Mentor (the team leader under my mentorship got the Best Presenter Award)
+          </li>
+          <li>
+            <b>Bootcamp on Web Development 2021</b><br>
+            2nd Position
+          </li>
+          <li><b>2019 ICPC Asia Dhaka Regional Contest (Preliminary)</b><br>1455 Position in 2019</li>
+
+          <li><b>DIU Googling Contest Spring 2019</b><br>
+            Winner
+          </li>
+
         </ul>
-        •
-        •
-        •
-        •
-        •
-        • Bootcamp on Web Development 2021
-        2nd Position
-        • 2019 ICPC Asia Dhaka Regional Contest (Preliminary)
-        1455 Position in 2019
-        • DIU Googling Contest Spring 2019
-        Winner
-
-
-
-
       </div>
 
-      <!-- About Me -->
+      <!-- Contact Me -->
       <div class="my-3 p-3">
         <h1 class="font-bold text-3xl">Contact me</h1>
         <hr class="my-3">
-        <input placeholder="Your Name">
-        <input placeholder="Your Name">
-        <textarea placeholder="Your Name"></textarea>t
+        <form id="my-form" action="https://formspree.io/f/xgedlvky" method="POST" class="text-xl">
+          <label>Your Email</label><br>
+          <input type="email" name="email" class="bg-transparent border my-3 w-3/4 p-3 rounded shadow"><br>
+
+          <label>Your message</label><br>
+          <textarea name="message" class="bg-transparent border my-3 w-3/4 p-3 rounded shadow"></textarea><br>
+
+          <button type="submit" class="border rounded bg-blue-900 text-white w-1/4 p-3 font-bold">Send</button>
+
+          <p id="my-form-status" class="text-lg my-3"></p>
+        </form>
       </div>
     </div>
   </div>
+  <script>
+    var form = document.getElementById("my-form");
+
+    async function handleSubmit(event) {
+      event.preventDefault();
+      var status = document.getElementById("my-form-status");
+      var data = new FormData(event.target);
+      fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          status.innerHTML = "Thanks! I will reply you soon!";
+          form.reset()
+        } else {
+          response.json().then(data => {
+            if (Object.hasOwn(data, 'errors')) {
+              status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+            } else {
+              status.innerHTML = "Oops! There was a problem submitting your form"
+            }
+          })
+        }
+      }).catch(error => {
+        status.innerHTML = "Oops! There was a problem submitting your form"
+      });
+    }
+    form.addEventListener("submit", handleSubmit)
+  </script>
 </body>
 
 </html>
